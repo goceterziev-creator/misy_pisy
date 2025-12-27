@@ -752,6 +752,46 @@ section {
     margin-top: 50px;
 }
 
+/* Контейнерът държи кадъра стабилен */
+.misy-frame{
+  width: min(380px, 70vw);   /* ако искаш по-голям аватар – вдигни 380px */
+  aspect-ratio: 1 / 1;       /* квадратен кадър на страницата (стабилен дизайн) */
+  overflow: hidden;
+  border-radius: 22px;
+  position: relative;
+}
+
+/* Картинката пълни кадъра, без да се разтяга */
+.misy-frame img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;         /* това решава проблема “не знам размера” */
+  object-position: 50% 35%;  /* фокус по-нагоре (лице), може да го смениш */
+}
+
+/* “Дишане” */
+.misy-breathe{
+  transform-origin: 50% 40%;
+  animation: misyBreathe 6.5s ease-in-out infinite;
+  will-change: transform, filter;
+  filter: contrast(1.05) saturate(1.08);
+}
+
+@keyframes misyBreathe{
+  0%   { transform: scale(1.00); }
+  50%  { transform: scale(1.035); }
+  100% { transform: scale(1.00); }
+}
+
+/* (по желание) лек “noir-gold” glow */
+.misy-frame::after{
+  content:"";
+  position:absolute; inset:-20%;
+  background: radial-gradient(circle at 60% 35%, rgba(212,175,55,.18), transparent 55%);
+  pointer-events:none;
+}
+
+
 /* ===== ФУТЪР ===== */
 .footer {
     background: #050505;
