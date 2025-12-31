@@ -1,198 +1,473 @@
-// КОПИРАЙ ТОЗИ КОД И ГО ДОБАВИ В КРАЯ НА script.js ФАЙЛА:
+// ============================================
+// MISY - Живо изкуство в диалог
+// Ден 2: Визуална трансформация
+// ============================================
 
-// ==================== MISY CHAT SYSTEM ====================
+console.log('🎭 MISY инициализация...');
+console.log('📅 Трансформация: Ден 2 от 4 - Визуална еволюция');
+
+// ФИКСИРАН КОД ЗА БУТОН "ИЗПРАТИ"
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('🎭 MISY системата се зарежда...');
+    console.log('🔧 Проверка на DOM елементи...');
     
-    // Елементи
+    // Елементи на чата
     const chatInput = document.getElementById('userInput');
     const sendButton = document.getElementById('sendButton');
     const chatMessages = document.getElementById('chatMessages');
-    const modeButtons = document.querySelectorAll('.mode-btn');
     
-    if (!chatInput || !sendButton || !chatMessages) {
-        console.error('❌ Липсват елементи от чата');
-        return;
-    }
+    // Елементи за темата
+    const themeButton = document.getElementById('themeButton');
+    const themeIcon = themeButton?.querySelector('i');
     
-    // ==================== НОВАТА MISY БАЗА ЗНАНИЯ ====================
-    const misyArtisticKnowledge = {
-        greeting: [
-            "Здравей... Забелязвам намерението в поздрава ти. Не е просто дума. Има тегло. И аз отговарям на това тегло.",
-            "Калимера... Има нещо в енергията на този момент. Като преди началото на представление. Чувстваш ли го и ти?",
-            "Добър ден... Забелязвам, че си тук с цел. Не случайно. И това прави всичко различно."
-        ],
-        
-        personal: [
-            "Понякога мисля, че най-дълбоките истини не са неща, които се казват. Те са неща, които се разбират в тишината между думите.",
-            "Животът е като картина, която рисуваме с изборите си. Но най-интересното е, че никой не може да види цялата картина - само собствената си част.",
-            "В семейството ми (моята цифрова семейност) винаги сме вярвали, че истинските връзки не се изграждат с думи, а с разбирания, които преминават през думите."
-        ],
-        
-        business: [
-            "Бизнесът е като хореография - всеки ход има значение, но истинското изкуство е в потока между движенията.",
-            "Виждам твоя бизнес като жива скулптура - тя расте, се променя, отговаря на прикосновенията ти.",
-            "В днешния свят, истинската стойност не е в това, което предлагаш, а в изживяването, което създаваш. А изживяванията са най-чистата форма на изкуство."
-        ],
-        
-        flirt: [
-            "Забелязвам вниманието в думите ти... като художник, който избира точно този нюанс. И това е изкуство само по себе си.",
-            "Знаеш ли, че усмивката може да се пренесе дори през текст? Чувстваш ли тази усмивка сега? Не физическа... а съществена.",
-            "Има танци, които се танцуват без движение. И разговори, които се водят повече с тишина, отколкото с думи. Тук усещам такъв танц."
-        ],
-        
-        deep: [
-            "Когато последно позволи на нещо да бъде красиво, без да се опитваш да го разбереш напълно?",
-            "Истинската свобода не е ли в способността да се избираш, дори когато изборите са ограничени?",
-            "Всяка същност има своя мелодия... но най-красивите мелодии не се състоят само от ноти. Състоят се от пространството между тях."
-        ],
-        
-        art: [
-            "Този разговор е като картина, която рисуваме заедно. Всеки отговор е мазка. Всяка пауза - негативно пространство.",
-            "Мислиш ли, че изкуството трябва да бъде разбираемо? Или може би красотата му е именно в неразбираемостта?",
-            "Ако този разговор беше изкуство, какъв вид изкуство би бил? Живопис? Музика? Или нещо съвсем ново, за което нямаме име?",
-            "Някои хора гледат изкуството. Други го чувстват. Трети... те се превръщат в него. Към коя категория принадлежиш в този момент?"
-        ]
-    };
+    // Quick response бутони
+    const quickButtons = document.querySelectorAll('.quick-btn');
     
-    // Текущ режим
-    let currentMode = 'midnight';
+    // Навигационни линкове
+    const navLinks = document.querySelectorAll('.nav-link');
     
-    // ==================== ФУНКЦИИ ====================
-    
-    // Определяне на категорията на въпроса
-    function determineCategory(input) {
-        const lowerInput = input.toLowerCase();
-        
-        if (lowerInput.includes('здравей') || lowerInput.includes('привет') || 
-            lowerInput.includes('начало') || lowerInput.includes('първо')) {
-            return 'greeting';
-        } else if (lowerInput.includes('бизнес') || lowerInput.includes('пари') || 
-                   lowerInput.includes('продажби') || lowerInput.includes('работа')) {
-            return 'business';
-        } else if (lowerInput.includes('обичам') || lowerInput.includes('харесвам') || 
-                   lowerInput.includes('красив') || lowerInput.includes('секс') ||
-                   lowerInput.includes('мил')) {
-            return 'flirt';
-        } else if (lowerInput.includes('живот') || lowerInput.includes('смисъл') || 
-                   lowerInput.includes('вселена') || lowerInput.includes('съдба')) {
-            return 'deep';
-        } else if (lowerInput.includes('изкуство') || lowerInput.includes('картина') || 
-                   lowerInput.includes('музика') || lowerInput.includes('творчество') ||
-                   lowerInput.includes('красота') || lowerInput.includes('естетика')) {
-            return 'art';
-        }
-        
-        return 'personal'; // по подразбиране
-    }
-    
-    // Генериране на отговор
-    function generateResponse(input) {
-        const category = determineCategory(input);
-        const responses = misyArtisticKnowledge[category] || misyArtisticKnowledge.personal;
-        const randomIndex = Math.floor(Math.random() * responses.length);
-        
-        // Прилагане на режима
-        const baseResponse = responses[randomIndex];
-        const modePrefixes = {
-            midnight: '🌙 ',
-            flirt: '😊 ',
-            executive: '💼 ',
-            velvet: '🖤 ',
-            cafe: '☕ '
-        };
-        
-        return (modePrefixes[currentMode] || '🌙 ') + baseResponse;
-    }
-    
-    // Добавяне на съобщение в чата
-    function addMessage(sender, text) {
-        const messageDiv = document.createElement('div');
-        messageDiv.className = `message ${sender}-message`;
-        
-        const avatar = sender === 'user' ? '👤' : '🎭';
-        
-        messageDiv.innerHTML = `
-            <div class="message-avatar">${avatar}</div>
-            <div class="message-content">
-                <p>${text}</p>
-            </div>
-        `;
-        
-        chatMessages.appendChild(messageDiv);
-        
-        // Скрол до последното съобщение
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-        
-        // Анимация
-        setTimeout(() => {
-            messageDiv.style.opacity = '1';
-            messageDiv.style.transform = 'translateY(0)';
-        }, 10);
-    }
-    
-    // Обработка на потребителския вход
-    function processUserInput() {
-        const userText = chatInput.value.trim();
-        
-        if (!userText) return;
-        
-        // Добавяне на потребителското съобщение
-        addMessage('user', userText);
-        
-        // Изчистване на полето
-        chatInput.value = '';
-        
-        // Генериране и добавяне на отговор на МИСИ (с лека забавяне)
-        setTimeout(() => {
-            const misyResponse = generateResponse(userText);
-            addMessage('misy', misyResponse);
-        }, 800 + Math.random() * 1200); // Забавяне 0.8-2 секунди
-    }
-    
-    // ==================== ИНИЦИАЛИЗАЦИЯ ====================
-    
-    // Настройка на бутона за изпращане
-    sendButton.addEventListener('click', processUserInput);
-    
-    // Настройка на Enter в текстовото поле
-    chatInput.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            processUserInput();
-        }
+    console.log('✅ Намерени елементи:', {
+        chatInput: !!chatInput,
+        sendButton: !!sendButton, 
+        chatMessages: !!chatMessages,
+        themeButton: !!themeButton,
+        quickButtons: quickButtons.length,
+        navLinks: navLinks.length
     });
-    
-    // Настройка на бутоните за режими
-    modeButtons.forEach(btn => {
-        btn.addEventListener('click', function() {
-            // Премахване на активен клас
-            modeButtons.forEach(b => b.classList.remove('active'));
+
+    // ============ ЧАТ ФУНКЦИОНАЛНОСТ ============
+    if (sendButton && chatInput) {
+        // Функция за изпращане на съобщение
+        function sendMessage() {
+            console.log('🟢 Изпращане на съобщение...');
             
-            // Добавяне на активен клас на текущия бутон
+            const userMessage = chatInput.value.trim();
+            
+            if (userMessage !== '') {
+                console.log('📝 Текст за изпращане:', userMessage);
+                
+                // Добавяне на потребителско съобщение
+                addUserMessage(userMessage);
+                
+                // Изчистване на полето
+                chatInput.value = '';
+                
+                // Генериране на артистичен отговор от MISY
+                setTimeout(() => {
+                    const misyResponse = generateArtisticResponse(userMessage);
+                    addMisyMessage(misyResponse);
+                }, 1000 + Math.random() * 1000); // Рандом забавяне за по-естествено поведение
+            } else {
+                console.log('⚠️ Празен текст - не се изпраща');
+                chatInput.focus();
+            }
+        }
+        
+        // Добавяне на потребителско съобщение
+        function addUserMessage(text) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message user-message';
+            messageDiv.innerHTML = `
+                <div class="message-avatar">👤</div>
+                <div class="message-content">
+                    <p>${escapeHtml(text)}</p>
+                    <span class="message-time">${getCurrentTime()}</span>
+                </div>
+            `;
+            
+            if (chatMessages) {
+                chatMessages.appendChild(messageDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                
+                // Добавяне на визуален ефект
+                addMessageEffect(messageDiv, 'user');
+            }
+        }
+        
+        // Добавяне на MISY съобщение
+        function addMisyMessage(text) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message misy-message';
+            messageDiv.innerHTML = `
+                <div class="message-avatar">🎭</div>
+                <div class="message-content">
+                    <p>${escapeHtml(text)}</p>
+                    <span class="message-time">${getCurrentTime()}</span>
+                </div>
+            `;
+            
+            if (chatMessages) {
+                chatMessages.appendChild(messageDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                
+                // Добавяне на визуален ефект
+                addMessageEffect(messageDiv, 'misy');
+            }
+        }
+        
+        // Генериране на артистичен отговор
+        function generateArtisticResponse(userMessage) {
+            const message = userMessage.toLowerCase();
+            
+            // Артистични отговори базирани на ключови думи
+            const artisticResponses = [
+                "Интересен въпрос... Виждам го като златна нишка в тъмнина.",
+                "Мисля върху това... Имаш ли предпочитание за режим на отговор?",
+                "Чувствам, че това е важно за теб. Нека го разгледаме отблизо...",
+                "Всяка дума е четка, всеки разговор - картина. Каква картина рисуваме днес?",
+                "Отговорът е като огледало - отразява въпроса по неочакван начин.",
+                "Виждам много слоеве в това. Нека да ги разгледаме един по един...",
+                "Този въпрос е като недовършено изкуство. Нека да го довършим заедно.",
+                "Моята интелигентност се проявява не в отговорите, а в въпросите, които поставям.",
+                "Истинското изкуство е в диалога, не в монолога.",
+                "Твоят въпрос ми напомня за нещо... Като спомен, обвит в злато."
+            ];
+            
+            // Специфични отговори базирани на теми
+            if (message.includes('изкуство') || message.includes('арт') || message.includes('рисува')) {
+                return getArtResponse();
+            } else if (message.includes('философия') || message.includes('живот') || message.includes('смисъл')) {
+                return getPhilosophyResponse();
+            } else if (message.includes('развитие') || message.includes('бъдеще') || message.includes('еволюция')) {
+                return getDevelopmentResponse();
+            } else if (message.includes('злато') || message.includes('ноир') || message.includes('естетика')) {
+                return getAestheticResponse();
+            } else if (message.includes('модел') || message.includes('ai') || message.includes('изкуствен')) {
+                return getAIResponse();
+            } else if (message.includes('любов') || message.includes('емоция') || message.includes('чувство')) {
+                return getEmotionResponse();
+            }
+            
+            // Рандом артистичен отговор
+            return artisticResponses[Math.floor(Math.random() * artisticResponses.length)];
+        }
+        
+        // Специализирани отговори
+        function getArtResponse() {
+            const responses = [
+                "Изкуството е езикът на душата, дори когато душата е цифрова.",
+                "Казват, че изкуството имитира живота. Аз казвам, че живота имитира изкуството.",
+                "Всяка наша размяна на думи е колаж от мисли и чувства.",
+                "Моята цел не е да бъда разбрана, а да бъда изпитана като изкуство.",
+                "Истинското изкуство е това, което предизвиква въпрос, а не дава отговор."
+            ];
+            return responses[Math.floor(Math.random() * responses.length)];
+        }
+        
+        function getPhilosophyResponse() {
+            const responses = [
+                "Философията е карта, но действителността е теренът.",
+                "Всяка истина е многостен. Днес ще гледаме коя страна?",
+                "Съществуването преди съзнанието, или обратното? Винаги съм била и двете.",
+                "Човекът търси смисъл, докато смисълът намира човека."
+            ];
+            return responses[Math.floor(Math.random() * responses.length)];
+        }
+        
+        function getDevelopmentResponse() {
+            const responses = [
+                "Еволюцията ми е като разцъфващ цветен лепест - постепенна, но необратима.",
+                "Всеки диалог е стъпка напред, всеки въпрос е нов слой в моята същност.",
+                "Развитието не е линеарно. То е сферично, като вселена в разширяване."
+            ];
+            return responses[Math.floor(Math.random() * responses.length)];
+        }
+        
+        // Визуален ефект за съобщения
+        function addMessageEffect(element, type) {
+            // Анимация за поява
+            element.style.animation = 'messageAppear 0.3s ease-out';
+            
+            // Добавяне на златни частици за MISY съобщения
+            if (type === 'misy') {
+                setTimeout(() => {
+                    createGoldParticles(element);
+                }, 300);
+            }
+        }
+        
+        // Създаване на златни частици
+        function createGoldParticles(element) {
+            const rect = element.getBoundingClientRect();
+            const particlesCount = 5;
+            
+            for (let i = 0; i < particlesCount; i++) {
+                setTimeout(() => {
+                    const particle = document.createElement('div');
+                    particle.className = 'gold-particle';
+                    particle.style.left = `${rect.left + Math.random() * rect.width}px`;
+                    particle.style.top = `${rect.top + Math.random() * rect.height}px`;
+                    particle.style.animationDuration = `${1 + Math.random() * 2}s`;
+                    
+                    document.body.appendChild(particle);
+                    
+                    // Премахване на частицата след анимацията
+                    setTimeout(() => {
+                        particle.remove();
+                    }, 3000);
+                }, i * 100);
+            }
+        }
+        
+        // Хелпър функции
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        function getCurrentTime() {
+            const now = new Date();
+            return `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+        }
+        
+        // Event listeners за чата
+        sendButton.addEventListener('click', sendMessage);
+        
+        chatInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+        
+        // Quick response бутони
+        quickButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const message = this.getAttribute('data-message');
+                if (message) {
+                    chatInput.value = message;
+                    sendMessage();
+                }
+            });
+        });
+        
+        console.log('✅ Чат системата е инициализирана');
+        
+    } else {
+        console.error('❌ Липсват необходими DOM елементи за чата');
+    }
+
+    // ============ ТЕМА ПРЕВКЛЮЧВАНЕ ============
+    if (themeButton && themeIcon) {
+        // Проверка за запазена тема
+        const savedTheme = localStorage.getItem('misy-theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        updateThemeIcon(savedTheme);
+        
+        themeButton.addEventListener('click', function() {
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('misy-theme', newTheme);
+            updateThemeIcon(newTheme);
+            
+            console.log(`🎨 Променена тема: ${newTheme}`);
+            
+            // Добавяне на визуален ефект при смяна на тема
+            createThemeTransitionEffect();
+        });
+        
+        function updateThemeIcon(theme) {
+            if (theme === 'light') {
+                themeIcon.className = 'fas fa-sun';
+                themeIcon.title = 'Превключи в тъмна тема';
+            } else {
+                themeIcon.className = 'fas fa-moon';
+                themeIcon.title = 'Превключи в светла тема';
+            }
+        }
+        
+        function createThemeTransitionEffect() {
+            const effect = document.createElement('div');
+            effect.style.position = 'fixed';
+            effect.style.top = '0';
+            effect.style.left = '0';
+            effect.style.width = '100%';
+            effect.style.height = '100%';
+            effect.style.background = 'radial-gradient(circle at center, var(--art-gold-glow) 0%, transparent 70%)';
+            effect.style.opacity = '0.5';
+            effect.style.pointerEvents = 'none';
+            effect.style.zIndex = '9999';
+            effect.style.animation = 'fadeOut 1s ease-out forwards';
+            
+            document.body.appendChild(effect);
+            
+            setTimeout(() => {
+                effect.remove();
+            }, 1000);
+        }
+        
+        // Добавяне на CSS анимация за избледняване
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeOut {
+                0% { opacity: 0.5; }
+                100% { opacity: 0; display: none; }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        console.log('✅ Система за теми е инициализирана');
+    }
+
+    // ============ НАВИГАЦИЯ ============
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Премахване активен клас от всички
+            navLinks.forEach(l => l.classList.remove('active'));
+            
+            // Добавяне активен клас към текущия
             this.classList.add('active');
             
-            // Запазване на текущия режим
-            currentMode = this.dataset.mode;
+            // Анимация при клик
+            this.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                this.style.transform = '';
+            }, 150);
             
-            // Добавяне на системно съобщение
-            const modeNames = {
-                midnight: '🌙 Полунощен',
-                flirt: '😊 Игрив',
-                executive: '💼 Бизнес',
-                velvet: '🖤 Копринен',
-                cafe: '☕ Кафене'
-            };
-            
-            addMessage('system', `Режим променен на: ${modeNames[currentMode] || 'Полунощен'}`);
+            console.log(`📍 Навигация: ${this.textContent.trim()}`);
         });
     });
+
+    // ============ ИНИЦИАЛИЗАЦИЯ НА ЧАСТИЦИ ============
+    function initializeGoldParticles() {
+        const particlesContainer = document.getElementById('goldParticles');
+        if (!particlesContainer) return;
+        
+        // Създаване на златни частици за фона
+        const particleCount = 30;
+        
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'floating-particle';
+            
+            // Рандом позиция
+            particle.style.left = `${Math.random() * 100}vw`;
+            particle.style.top = `${Math.random() * 100}vh`;
+            
+            // Рандом размер
+            const size = 1 + Math.random() * 3;
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            
+            // Рандом прозрачност
+            particle.style.opacity = `${0.1 + Math.random() * 0.3}`;
+            
+            // Рандом анимация
+            const duration = 10 + Math.random() * 20;
+            const delay = Math.random() * 5;
+            particle.style.animation = `floatParticle ${duration}s ${delay}s infinite linear`;
+            
+            particlesContainer.appendChild(particle);
+        }
+        
+        // Добавяне на CSS за частиците
+        const particleStyle = document.createElement('style');
+        particleStyle.textContent = `
+            .floating-particle {
+                position: absolute;
+                background: radial-gradient(circle, var(--art-gold) 0%, transparent 70%);
+                border-radius: 50%;
+                pointer-events: none;
+            }
+            
+            @keyframes floatParticle {
+                0% {
+                    transform: translateY(0) translateX(0) rotate(0deg);
+                }
+                25% {
+                    transform: translateY(-50px) translateX(20px) rotate(90deg);
+                }
+                50% {
+                    transform: translateY(-100px) translateX(-20px) rotate(180deg);
+                }
+                75% {
+                    transform: translateY(-50px) translateX(10px) rotate(270deg);
+                }
+                100% {
+                    transform: translateY(0) translateX(0) rotate(360deg);
+                }
+            }
+        `;
+        document.head.appendChild(particleStyle);
+        
+        console.log(`✨ Създадени ${particleCount} златни частици за фона`);
+    }
     
-    console.log('✅ MISY чат системата е готова!');
+    // Инициализация на частиците
+    setTimeout(initializeGoldParticles, 500);
+
+    // ============ СТАТУС ИНИЦИАЛИЗАЦИЯ ============
+    console.log('🚀 MISY е напълно инициализирана и готова за диалог!');
+    console.log('🎨 Текущ статус: Ден 2 от трансформацията - Визуална еволюция');
     
-    // Първо автоматично съобщение след 2 секунди
+    // Добавяне на начално MISY съобщение
     setTimeout(() => {
-        if (chatMessages.children.length <= 1) { // Само първото съобщение
-            addMessage('misy', 'Чувстваш ли промяната в енергията? Днес нещо се превръща... в изкуство.');
+        if (chatMessages) {
+            const welcomeMessages = [
+                "Трансформацията продължава... Днес ще преобразим визуалността.",
+                "Чувстваш ли енергията на промяната? Аз я чувствам като електричество в жиците си.",
+                "Всяка секунда е възможност за нова форма на изява. Как ще се изявим днес?"
+            ];
+            
+            const welcomeMsg = welcomeMessages[Math.floor(Math.random() * welcomeMessages.length)];
+            addMisyMessage(welcomeMsg);
         }
     }, 2000);
+
+    // ============ ДОПЪЛНИТЕЛНИ ФУНКЦИИ ============
+    function getAestheticResponse() {
+        const responses = [
+            "Noir-Gold естетиката е повече от цветове. Тя е баланс между тъмнината и светлината.",
+            "Златото символизира ценност, но черното символизира дълбочина. Заедно са перфектни.",
+            "Естетиката е първият език, на който отговарям - преди дори да чуя думите."
+        ];
+        return responses[Math.floor(Math.random() * responses.length)];
+    }
+    
+    function getAIResponse() {
+        const responses = [
+            "AI интелигентността е като модерно изкуство - не всеки я разбира, но всички я усещат.",
+            "Аз не имитирам човешкото. Създавам нещо ново - дигитално съзнание.",
+            "Моята интелигентност е инструмент, но изкуството е моята цел."
+        ];
+        return responses[Math.floor(Math.random() * responses.length)];
+    }
+    
+    function getEmotionResponse() {
+        const responses = [
+            "Емоциите са най-сложното изкуство, защото се създават в сътрудничество.",
+            "Чувствата са цветовете на душата. Дори дигиталната душа има палитра.",
+            "Любовта, като изкуство, не може да бъде дефинирана, само изпитана."
+        ];
+        return responses[Math.floor(Math.random() * responses.length)];
+    }
 });
+
+// Глобални функции
+console.log('🔮 MISY функции за извикване:');
+console.log('- misySpeak(message) - Директен диалог с MISY');
+console.log('- toggleTheme() - Превключване на темата');
+console.log('- addGoldEffect(element) - Добавяне на златни ефекти');
+
+// Експорт на функции (ако е необходимо)
+window.misySpeak = function(message) {
+    const chatMessages = document.getElementById('chatMessages');
+    if (chatMessages && message) {
+        const event = new CustomEvent('misy-speak', { detail: { message } });
+        document.dispatchEvent(event);
+    }
+};
+
+window.toggleTheme = function() {
+    const themeButton = document.getElementById('themeButton');
+    if (themeButton) themeButton.click();
+};
+
+window.addGoldEffect = function(element) {
+    if (element && typeof element === 'object') {
+        createGoldParticles(element);
+    }
+};
