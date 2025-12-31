@@ -1,1033 +1,738 @@
-/* ===== ОСНОВНИ СТИЛОВЕ ===== */
-:root {
-    /* ЦВЕТОВА ПАЛИТРА MISY */
-    --midnight: #0a0a0a;
-    --velvet: #1a1a1a;
-    --gold: #d4af37;
-    --soft-gold: #f4e4a6;
-    --light: #f0e6d2;
-    --gray: #888;
-    --success: #2ecc71;
-    
-    /* ДОПЪЛНИТЕЛНИ */
-    --gold-dark: #b8941f;
-    --gold-light: #f8e7a8;
-    --velvet-light: #2a2a2a;
-    --shadow: rgba(0, 0, 0, 0.5);
-    --shadow-gold: rgba(212, 175, 55, 0.3);
-}
+/* ============================================
+   MISY - Живо изкуство в диалог
+   Noir-Gold Аesthetic
+   Ден 2: Визуална трансформация
+============================================ */
 
+/* Reset & Base */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+:root {
+    /* Noir-Gold цветова палитра */
+    --noir-black: #0a0a0a;
+    --noir-dark: #1a1a1a;
+    --noir-gray: #2a2a2a;
+    --art-gold: #FFD700;
+    --art-gold-light: #FFE55C;
+    --art-gold-dark: #B8860B;
+    --art-gold-glow: rgba(255, 215, 0, 0.3);
+    --text-light: #F5F5F5;
+    --text-gray: #A0A0A0;
+    --accent-purple: #8A2BE2;
+    
+    /* Анимации */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: all 0.5s ease;
+}
+
+[data-theme="light"] {
+    --noir-black: #f5f5f5;
+    --noir-dark: #e5e5e5;
+    --noir-gray: #d5d5d5;
+    --text-light: #0a0a0a;
+    --text-gray: #555555;
+}
+
 body {
-    background: var(--midnight);
-    color: var(--light);
     font-family: 'Raleway', sans-serif;
-    line-height: 1.6;
+    background: linear-gradient(135deg, var(--noir-black) 0%, var(--noir-dark) 100%);
+    color: var(--text-light);
+    min-height: 100vh;
     overflow-x: hidden;
+    transition: var(--transition-slow);
 }
 
-/* ===== ТИПОГРАФИЯ ===== */
-h1, h2, h3, h4 {
-    font-family: 'Cinzel', serif;
-    color: var(--gold);
-    font-weight: 700;
-}
-
-h1 { font-size: 3.5rem; }
-h2 { font-size: 2.5rem; }
-h3 { font-size: 1.8rem; }
-h4 { font-size: 1.4rem; }
-
-p {
-    font-size: 1.1rem;
-    margin-bottom: 1rem;
-}
-
-a {
-    color: var(--gold);
-    text-decoration: none;
-    transition: all 0.3s ease;
-}
-
-a:hover {
-    color: var(--gold-light);
-}
-
-/* ===== НАВИГАЦИЯ ===== */
-.navbar {
-    background: rgba(10, 10, 10, 0.95);
-    backdrop-filter: blur(10px);
+/* Златни частици фон */
+#goldParticles {
     position: fixed;
-    width: 100%;
     top: 0;
-    z-index: 1000;
-    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-    padding: 15px 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+    opacity: 0.3;
 }
 
-.nav-container {
-    max-width: 1200px;
+/* Контейнер */
+.container {
+    max-width: 1400px;
     margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     padding: 0 20px;
 }
 
-.nav-logo {
+/* Хедър */
+.header {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 0;
+    border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+    margin-bottom: 40px;
 }
 
-.logo-text {
-    font-family: 'Cinzel', serif;
-    font-size: 2rem;
-    color: var(--gold);
-    font-weight: bold;
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
-.logo-sub {
-    font-size: 0.8rem;
-    color: var(--gray);
-    letter-spacing: 2px;
+.logo-icon {
+    font-size: 2.5rem;
+    animation: float 3s ease-in-out infinite;
 }
 
-.nav-links {
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.logo h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem;
+    font-weight: 700;
+    background: linear-gradient(45deg, var(--art-gold), var(--art-gold-light));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 30px var(--art-gold-glow);
+}
+
+.tagline {
+    font-size: 0.9rem;
+    color: var(--text-gray);
+    font-style: italic;
+    margin-left: 10px;
+}
+
+.nav {
     display: flex;
     gap: 30px;
-    align-items: center;
 }
 
 .nav-link {
-    color: var(--light);
-    font-weight: 500;
-    padding: 8px 16px;
-    border-radius: 5px;
-    transition: all 0.3s;
+    color: var(--text-gray);
+    text-decoration: none;
+    font-weight: 600;
+    padding: 10px 15px;
+    border-radius: 8px;
+    transition: var(--transition-smooth);
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .nav-link:hover {
-    color: var(--gold);
-    background: rgba(212, 175, 55, 0.1);
+    color: var(--art-gold);
+    background: rgba(255, 215, 0, 0.1);
 }
 
-.fanvue-nav {
-    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
-    color: var(--midnight) !important;
-    font-weight: bold;
+.nav-link.active {
+    color: var(--art-gold);
+    background: rgba(255, 215, 0, 0.15);
+    border: 1px solid rgba(255, 215, 0, 0.3);
 }
 
-.fanvue-nav:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px var(--shadow-gold);
+.theme-toggle button {
+    background: rgba(255, 215, 0, 0.1);
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    color: var(--art-gold);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: var(--transition-smooth);
 }
 
-/* ===== ХЕРО СЕКЦИЯ ===== */
-.hero-section {
-    padding: 150px 20px 80px;
-    min-height: 100vh;
+.theme-toggle button:hover {
+    background: rgba(255, 215, 0, 0.2);
+    transform: rotate(30deg);
+}
+
+/* Главно съдържание */
+.main-content {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 40px;
+    margin-bottom: 60px;
+}
+
+/* Профил секция */
+.profile-section {
     display: flex;
-    align-items: center;
-    background: linear-gradient(135deg, var(--midnight) 0%, var(--velvet) 100%);
+    flex-direction: column;
+    gap: 30px;
+}
+
+.artistic-frame {
+    background: linear-gradient(145deg, rgba(26, 26, 26, 0.8), rgba(10, 10, 10, 0.9));
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
     position: relative;
     overflow: hidden;
 }
 
-.hero-section::before {
+.artistic-frame::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.1) 0%, transparent 50%);
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, var(--art-gold-glow) 0%, transparent 70%);
+    opacity: 0.1;
+    animation: rotate 20s linear infinite;
 }
 
-.hero-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    align-items: center;
-    position: relative;
-    z-index: 1;
-}
-
-.avatar-container {
-    position: relative;
-    display: flex;
-    justify-content: center;
+@keyframes rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 .misy-avatar {
-    width: 350px;
-    height: 350px;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 20px;
+    position: relative;
+}
+
+.avatar-placeholder {
+    width: 100%;
+    height: 100%;
     border-radius: 50%;
-    border: 5px solid var(--gold);
-    filter: drop-shadow(0 0 30px rgba(212, 175, 55, 0.4));
-    animation: gentleBreath 4s infinite ease-in-out;
-    object-fit: cover;
+    background: linear-gradient(135deg, var(--noir-dark), var(--noir-black));
+    border: 3px solid var(--art-gold);
+    position: relative;
+    overflow: hidden;
 }
 
-@keyframes gentleBreath {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-15px); }
-}
-
-.avatar-glow {
+.gold-orb {
     position: absolute;
-    width: 400px;
-    height: 400px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80px;
+    height: 80px;
+    background: radial-gradient(circle, var(--art-gold), var(--art-gold-dark));
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(212, 175, 55, 0.2) 0%, transparent 70%);
-    animation: pulse 3s infinite;
-    z-index: -1;
+    filter: blur(10px);
+    opacity: 0.8;
+    animation: pulse 2s ease-in-out infinite;
 }
 
 @keyframes pulse {
-    0%, 100% { opacity: 0.3; transform: scale(1); }
-    50% { opacity: 0.6; transform: scale(1.05); }
+    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
+    50% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
 }
 
-.status-indicator {
+.artistic-lines {
     position: absolute;
-    bottom: 20px;
-    right: 20px;
-    background: rgba(10, 10, 10, 0.8);
-    padding: 8px 15px;
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    border: 1px solid var(--gold);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
 
-.status-dot {
-    width: 10px;
-    height: 10px;
-    background: var(--success);
-    border-radius: 50%;
-    animation: blink 2s infinite;
+.line {
+    position: absolute;
+    background: linear-gradient(90deg, transparent, var(--art-gold), transparent);
+    height: 2px;
+    animation: lineMove 4s linear infinite;
 }
 
-@keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
+.line-1 {
+    top: 20%;
+    width: 80%;
+    left: 10%;
+    animation-delay: 0s;
 }
 
-.status-text {
-    color: var(--success);
-    font-size: 0.9rem;
-    font-weight: bold;
+.line-2 {
+    top: 50%;
+    width: 60%;
+    left: 20%;
+    animation-delay: 1s;
 }
 
-.hero-content {
-    padding-right: 20px;
+.line-3 {
+    top: 80%;
+    width: 70%;
+    left: 15%;
+    animation-delay: 2s;
 }
 
-.hero-title {
-    font-size: 4.5rem;
-    margin-bottom: 10px;
-    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+@keyframes lineMove {
+    0% { transform: translateX(-100%); opacity: 0; }
+    10%, 90% { opacity: 1; }
+    100% { transform: translateX(100%); opacity: 0; }
 }
 
-.hero-subtitle {
-    font-size: 1.8rem;
-    color: var(--gray);
-    margin-bottom: 40px;
-    font-weight: 300;
-}
-
-.balance-display {
-    display: flex;
-    justify-content: space-between;
-    margin: 40px 0;
-    gap: 20px;
-}
-
-.balance-item {
+.artistic-title {
     text-align: center;
-    flex: 1;
-    padding: 20px;
-    background: rgba(26, 26, 26, 0.5);
-    border-radius: 10px;
-    border: 1px solid rgba(212, 175, 55, 0.2);
-    transition: all 0.3s;
 }
 
-.balance-item:hover {
-    transform: translateY(-5px);
-    border-color: var(--gold);
-    box-shadow: 0 10px 20px var(--shadow-gold);
-}
-
-.balance-percent {
+.artistic-title h2 {
+    font-family: 'Playfair Display', serif;
     font-size: 2.5rem;
-    font-weight: bold;
-    color: var(--gold);
-    display: block;
     margin-bottom: 10px;
+    background: linear-gradient(45deg, var(--art-gold), var(--accent-purple));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }
 
-.balance-label {
-    font-size: 0.9rem;
-    color: var(--light);
-    display: block;
+.subtitle {
+    color: var(--text-gray);
+    font-style: italic;
+    font-size: 1.1rem;
 }
 
-.hero-description {
-    font-size: 1.3rem;
-    color: var(--light);
-    margin: 40px 0;
-    line-height: 1.8;
-}
-
-/* ===== FANVUE БУТОНИ ===== */
-.fanvue-btn {
-    display: inline-block;
-    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
-    color: var(--midnight);
-    padding: 18px 45px;
-    font-size: 1.3rem;
-    font-weight: bold;
-    border-radius: 12px;
-    transition: all 0.3s;
-    text-align: center;
-    border: none;
-    cursor: pointer;
-    text-decoration: none;
-    box-shadow: 0 8px 20px var(--shadow-gold);
-}
-
-.fanvue-btn:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 30px var(--shadow-gold);
-    color: var(--midnight);
-}
-
-.main-btn {
-    font-size: 1.5rem;
-    padding: 20px 50px;
-    margin: 30px 0;
-}
-
-.large-btn {
-    font-size: 1.8rem;
-    padding: 25px 60px;
-    margin: 40px 0;
-}
-
-.hero-note {
-    color: var(--gray);
-    font-size: 0.9rem;
-    margin-top: 20px;
-}
-
-/* ===== СЕКЦИИ ===== */
-section {
-    padding: 100px 20px;
-}
-
-.section-header {
-    text-align: center;
-    margin-bottom: 60px;
-}
-
-.section-subtitle {
-    color: var(--gray);
-    font-size: 1.2rem;
-    margin-top: 10px;
-}
-
-/* ===== ЧАТ СЕКЦИЯ ===== */
-.chat-section {
-    background: var(--velvet);
-}
-
-.chat-container {
-    max-width: 800px;
-    margin: 0 auto;
-    background: rgba(10, 10, 10, 0.7);
-    border-radius: 20px;
-    padding: 40px;
-    border: 1px solid rgba(212, 175, 55, 0.3);
+/* Философия бокс */
+.philosophy-box {
+    background: rgba(255, 215, 0, 0.05);
+    border: 1px solid rgba(255, 215, 0, 0.1);
+    border-radius: 15px;
+    padding: 25px;
     backdrop-filter: blur(10px);
 }
 
-.chat-messages {
-    height: 400px;
-    overflow-y: auto;
-    padding: 20px;
-    background: rgba(0, 0, 0, 0.5);
+.philosophy-box h3 {
+    color: var(--art-gold);
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.3rem;
+}
+
+.philosophy-text {
+    line-height: 1.8;
+    color: var(--text-light);
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    font-style: italic;
+}
+
+.artistic-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.tag {
+    background: rgba(255, 215, 0, 0.1);
+    color: var(--art-gold);
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    transition: var(--transition-smooth);
+}
+
+.tag:hover {
+    background: rgba(255, 215, 0, 0.2);
+    transform: translateY(-2px);
+}
+
+/* Статистика бокс */
+.stats-box {
+    background: linear-gradient(135deg, rgba(138, 43, 226, 0.1), rgba(255, 215, 0, 0.1));
+    border: 1px solid rgba(138, 43, 226, 0.2);
+    border-radius: 15px;
+    padding: 25px;
+}
+
+.stats-box h3 {
+    color: var(--accent-purple);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.stat {
+    text-align: center;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.05);
     border-radius: 10px;
-    margin-bottom: 30px;
-    border: 1px solid rgba(212, 175, 55, 0.1);
+    transition: var(--transition-smooth);
+}
+
+.stat:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-5px);
+}
+
+.stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--art-gold);
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: var(--text-gray);
+}
+
+/* Чат секция */
+.chat-section {
+    background: linear-gradient(145deg, rgba(26, 26, 26, 0.9), rgba(10, 10, 10, 0.95));
+    border: 1px solid rgba(255, 215, 0, 0.15);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.6);
+    display: flex;
+    flex-direction: column;
+    height: 700px;
+}
+
+.chat-header {
+    padding: 25px 30px;
+    border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.chat-header h2 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--art-gold);
+}
+
+.chat-subtitle {
+    color: var(--text-gray);
+    font-style: italic;
+    margin-bottom: 15px;
+}
+
+.chat-mode {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.mode-indicator {
+    width: 12px;
+    height: 12px;
+    background: var(--art-gold);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--art-gold);
+    animation: pulse 2s infinite;
+}
+
+.mode-text {
+    color: var(--art-gold);
+    font-weight: 600;
+}
+
+/* Чат съобщения */
+.chat-messages {
+    flex: 1;
+    padding: 25px 30px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background: rgba(10, 10, 10, 0.7);
 }
 
 .message {
     display: flex;
     gap: 15px;
-    margin-bottom: 25px;
+    animation: messageAppear 0.3s ease-out;
+}
+
+@keyframes messageAppear {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .message-avatar {
-    font-size: 2rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
     flex-shrink: 0;
 }
 
+.user-message .message-avatar {
+    background: rgba(138, 43, 226, 0.2);
+    border: 1px solid rgba(138, 43, 226, 0.4);
+    color: var(--accent-purple);
+}
+
+.misy-message .message-avatar {
+    background: rgba(255, 215, 0, 0.2);
+    border: 1px solid rgba(255, 215, 0, 0.4);
+    color: var(--art-gold);
+}
+
 .message-content {
-    background: rgba(212, 175, 55, 0.1);
-    padding: 15px 20px;
-    border-radius: 10px;
-    border-left: 3px solid var(--gold);
     flex: 1;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 15px 20px;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
 }
 
-.mode-selector {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 30px;
-    flex-wrap: wrap;
+.user-message .message-content {
+    background: rgba(138, 43, 226, 0.1);
+    border-color: rgba(138, 43, 226, 0.2);
 }
 
-.mode-btn {
-    background: rgba(26, 26, 26, 0.8);
-    color: var(--light);
-    border: 1px solid var(--gray);
-    padding: 10px 20px;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: all 0.3s;
+.misy-message .message-content {
+    background: rgba(255, 215, 0, 0.05);
+    border-color: rgba(255, 215, 0, 0.15);
 }
 
-.mode-btn:hover, .mode-btn.active {
-    background: var(--gold);
-    color: var(--midnight);
-    border-color: var(--gold);
-    font-weight: bold;
+.message-content p {
+    line-height: 1.6;
+    margin-bottom: 5px;
 }
 
-.input-section {
+.message-time {
+    font-size: 0.8rem;
+    color: var(--text-gray);
+    opacity: 0.7;
+}
+
+/* Чат контроли */
+.chat-controls {
+    padding: 25px 30px;
+    border-top: 1px solid rgba(255, 215, 0, 0.1);
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.input-group {
     display: flex;
     gap: 15px;
+    margin-bottom: 20px;
 }
 
-.chat-input {
+#userInput {
     flex: 1;
     padding: 15px 20px;
-    background: rgba(26, 26, 26, 0.8);
-    border: 1px solid rgba(212, 175, 55, 0.3);
-    border-radius: 10px;
-    color: var(--light);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    border-radius: 12px;
+    color: var(--text-light);
     font-size: 1rem;
+    transition: var(--transition-smooth);
 }
 
-.chat-input:focus {
+#userInput:focus {
     outline: none;
-    border-color: var(--gold);
-    box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
+    border-color: var(--art-gold);
+    box-shadow: 0 0 20px var(--art-gold-glow);
+    background: rgba(255, 255, 255, 0.08);
 }
 
 .send-btn {
-    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
-    color: var(--midnight);
+    padding: 15px 30px;
+    background: linear-gradient(45deg, var(--art-gold), var(--art-gold-dark));
+    color: var(--noir-black);
     border: none;
-    padding: 0 30px;
-    border-radius: 10px;
-    font-weight: bold;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1rem;
     cursor: pointer;
-    transition: all 0.3s;
+    transition: var(--transition-smooth);
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .send-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px var(--shadow-gold);
+    box-shadow: 0 10px 25px rgba(255, 215, 0, 0.4);
 }
 
-.chat-note {
-    text-align: center;
-    color: var(--gray);
-    margin-top: 20px;
-    font-size: 0.9rem;
-}
-
-.fanvue-link {
-    color: var(--gold);
-    font-weight: bold;
-}
-
-/* ===== FANVUE СЕКЦИЯ ===== */
-.fanvue-section {
-    background: linear-gradient(135deg, var(--midnight) 0%, #111 100%);
-}
-
-.fanvue-container {
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.benefits-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
-    margin-bottom: 60px;
-}
-
-.benefit-card {
-    background: rgba(26, 26, 26, 0.8);
-    padding: 30px;
-    border-radius: 15px;
-    text-align: center;
-    border: 1px solid rgba(212, 175, 55, 0.2);
-    transition: all 0.3s;
-}
-
-.benefit-card:hover {
-    transform: translateY(-10px);
-    border-color: var(--gold);
-    box-shadow: 0 15px 30px var(--shadow-gold);
-}
-
-.benefit-icon {
-    font-size: 3rem;
-    margin-bottom: 20px;
-}
-
-/* ===== ЦЕНОВА СЕКЦИЯ ===== */
-.pricing-section {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-    margin-bottom: 60px;
-}
-
-.pricing-card {
-    background: rgba(26, 26, 26, 0.9);
-    padding: 40px 30px;
-    border-radius: 15px;
-    border: 2px solid rgba(212, 175, 55, 0.3);
-    position: relative;
-    text-align: center;
-    transition: all 0.3s;
-}
-
-.pricing-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-}
-
-.pricing-card.featured {
-    border-color: var(--gold);
-    transform: scale(1.05);
-    z-index: 1;
-}
-
-.pricing-card.featured:hover {
-    transform: scale(1.05) translateY(-10px);
-}
-
-.badge {
-    position: absolute;
-    top: -15px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--gold);
-    color: var(--midnight);
-    padding: 5px 20px;
-    border-radius: 20px;
-    font-weight: bold;
-    font-size: 0.9rem;
-}
-
-.pricing-card h3 {
-    margin-bottom: 20px;
-    font-size: 2rem;
-}
-
-.price {
-    font-size: 3.5rem;
-    color: var(--gold);
-    font-weight: bold;
-    margin-bottom: 30px;
-}
-
-.price span {
-    font-size: 1.2rem;
-    color: var(--gray);
-}
-
-.features-list {
-    list-style: none;
-    text-align: left;
-    margin-bottom: 30px;
-}
-
-.features-list li {
-    padding: 10px 0;
-    border-bottom: 1px solid rgba(212, 175, 55, 0.1);
-    color: var(--light);
-}
-
-.features-list li:last-child {
-    border-bottom: none;
-}
-
-.pricing-btn {
-    display: block;
-    background: rgba(212, 175, 55, 0.2);
-    color: var(--gold);
-    padding: 15px;
-    border-radius: 10px;
-    font-weight: bold;
-    transition: all 0.3s;
-    border: 2px solid var(--gold);
-}
-
-.pricing-btn:hover {
-    background: var(--gold);
-    color: var(--midnight);
-    transform: translateY(-3px);
-}
-
-.premium-btn {
-    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
-    color: var(--midnight);
-    font-size: 1.2rem;
-}
-
-/* ===== PAY-PER-VIEW ===== */
-.pay-per-view {
-    background: rgba(26, 26, 26, 0.8);
-    padding: 40px;
-    border-radius: 15px;
-    margin-bottom: 60px;
-    border: 1px solid rgba(212, 175, 55, 0.2);
-}
-
-.pay-per-view h3 {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.ppv-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-}
-
-.ppv-item {
+.quick-responses {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 20px;
-    background: rgba(10, 10, 10, 0.5);
-    border-radius: 10px;
-    border: 1px solid rgba(212, 175, 55, 0.1);
-    transition: all 0.3s;
-}
-
-.ppv-item:hover {
-    border-color: var(--gold);
-    transform: translateX(5px);
-}
-
-.ppv-type {
-    color: var(--light);
-    font-weight: 500;
-}
-
-.ppv-price {
-    color: var(--gold);
-    font-weight: bold;
-    font-size: 1.2rem;
-}
-
-/* ===== CTA КОНТЕЙНЕР ===== */
-.cta-container {
-    text-align: center;
-    padding: 60px 40px;
-    background: rgba(212, 175, 55, 0.1);
-    border-radius: 20px;
-    border: 2px solid var(--gold);
-    margin-top: 40px;
-}
-
-.cta-container h3 {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-}
-
-.cta-container p {
-    font-size: 1.3rem;
-    color: var(--light);
-    margin-bottom: 30px;
-}
-
-.cta-note {
-    color: var(--gray);
-    font-size: 0.9rem;
-    margin-top: 20px;
-}
-
-/* ===== ЗА МЕН СЕКЦИЯ ===== */
-.about-section {
-    background: var(--velvet);
-}
-
-.about-container {
-    max-width: 1000px;
-    margin: 0 auto;
-}
-
-.about-content h3 {
-    margin: 30px 0 20px;
-    color: var(--gold);
-    font-size: 2rem;
-}
-
-.about-content p {
-    font-size: 1.2rem;
-    line-height: 1.8;
-    margin-bottom: 30px;
-}
-
-.about-features {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-    margin: 40px 0;
-}
-
-.feature {
-    background: rgba(10, 10, 10, 0.5);
-    padding: 30px;
-    border-radius: 15px;
-    border: 1px solid rgba(212, 175, 55, 0.2);
-    transition: all 0.3s;
-}
-
-.feature:hover {
-    transform: translateY(-5px);
-    border-color: var(--gold);
-}
-
-.feature-icon {
-    font-size: 3rem;
-    margin-bottom: 20px;
-}
-
-.feature h4 {
-    color: var(--gold);
+    gap: 15px;
     margin-bottom: 15px;
-    font-size: 1.4rem;
+    flex-wrap: wrap;
 }
 
-.reasons-list {
-    list-style: none;
-    margin: 40px 0;
+.quick-btn {
+    padding: 10px 20px;
+    background: rgba(255, 215, 0, 0.1);
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    color: var(--art-gold);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
-.reasons-list li {
-    padding: 15px 0;
-    border-bottom: 1px solid rgba(212, 175, 55, 0.1);
-    font-size: 1.2rem;
+.quick-btn:hover {
+    background: rgba(255, 215, 0, 0.2);
+    transform: translateY(-2px);
 }
 
-.reasons-list li:last-child {
-    border-bottom: none;
+.chat-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-gray);
+    font-size: 0.9rem;
+    opacity: 0.8;
 }
 
-.about-cta {
-    text-align: center;
-    margin-top: 50px;
-}
-
-/* Контейнерът държи кадъра стабилен */
-.misy-frame{
-  width: min(380px, 70vw);   /* ако искаш по-голям аватар – вдигни 380px */
-  aspect-ratio: 1 / 1;       /* квадратен кадър на страницата (стабилен дизайн) */
-  overflow: hidden;
-  border-radius: 22px;
-  position: relative;
-}
-
-/* Картинката пълни кадъра, без да се разтяга */
-.misy-frame img{
-  width: 100%;
-  height: 100%;
-  object-fit: cover;         /* това решава проблема “не знам размера” */
-  object-position: 50% 0%;  /* фокус по-нагоре (лице), може да го смениш */
-}
-
-/* “Дишане” */
-.misy-breathe{
-  transform-origin: 50% 40%;
-  animation: misyBreathe 6.5s ease-in-out infinite;
-  will-change: transform, filter;
-  filter: contrast(1.05) saturate(1.08);
-}
-
-@keyframes misyBreathe{
-  0%   { transform: scale(1.00); }
-  50%  { transform: scale(1.035); }
-  100% { transform: scale(1.00); }
-}
-
-/* (по желание) лек “noir-gold” glow */
-.misy-frame::after{
-  content:"";
-  position:absolute; inset:-20%;
-  background: radial-gradient(circle at 60% 35%, rgba(212,175,55,.18), transparent 55%);
-  pointer-events:none;
-}
-
-
-/* ===== ФУТЪР ===== */
+/* Футър */
 .footer {
-    background: #050505;
-    padding: 60px 20px 30px;
-    border-top: 1px solid rgba(212, 175, 55, 0.2);
+    margin-top: 50px;
+    padding: 30px 0;
+    border-top: 1px solid rgba(255, 215, 0, 0.1);
 }
 
-.footer-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 40px;
+.footer-content {
+    text-align: center;
 }
 
-.footer-brand h3 {
-    font-size: 2.5rem;
-    margin-bottom: 10px;
+.footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    background: linear-gradient(45deg, var(--art-gold), var(--accent-purple));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 15px;
 }
 
-.footer-tagline {
-    color: var(--gray);
+.footer-text {
+    color: var(--text-gray);
     font-style: italic;
-    margin-top: 10px;
+    max-width: 600px;
+    margin: 0 auto 25px;
+    line-height: 1.6;
 }
 
 .footer-links {
     display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.footer-links h4 {
+    justify-content: center;
+    gap: 30px;
     margin-bottom: 20px;
-    color: var(--gold);
 }
 
-.footer-links a {
-    color: var(--light);
-    transition: all 0.3s;
-    padding: 8px 0;
-    border-bottom: 1px solid transparent;
-}
-
-.footer-links a:hover {
-    color: var(--gold);
-    border-bottom-color: var(--gold);
-    padding-left: 10px;
-}
-
-.footer-social h4 {
-    margin-bottom: 20px;
-    color: var(--gold);
-}
-
-.social-icons {
+.social-link {
+    color: var(--text-light);
+    text-decoration: none;
     display: flex;
-    gap: 20px;
-    margin-bottom: 30px;
+    align-items: center;
+    gap: 8px;
+    transition: var(--transition-smooth);
 }
 
-.social-icon {
-    display: inline-flex;
+.social-link:hover {
+    color: var(--art-gold);
+    transform: translateY(-2px);
+}
+
+.footer-status {
+    display: flex;
     align-items: center;
     justify-content: center;
-    width: 50px;
-    height: 50px;
-    background: rgba(212, 175, 55, 0.2);
+    gap: 10px;
+    color: var(--text-gray);
+    font-size: 0.9rem;
+}
+
+.status-indicator {
+    width: 10px;
+    height: 10px;
+    background: var(--art-gold);
     border-radius: 50%;
-    font-size: 1.5rem;
-    transition: all 0.3s;
+    box-shadow: 0 0 10px var(--art-gold);
+    animation: pulse 2s infinite;
 }
 
-.social-icon:hover {
-    background: var(--gold);
-    color: var(--midnight);
-    transform: translateY(-5px);
-}
-
-.footer-note {
-    color: var(--gray);
-    font-size: 0.9rem;
-    line-height: 1.6;
-}
-
-.footer-bottom {
-    max-width: 1200px;
-    margin: 40px auto 0;
-    padding-top: 30px;
-    border-top: 1px solid rgba(212, 175, 55, 0.1);
-    text-align: center;
-    color: var(--gray);
-    font-size: 0.9rem;
-}
-
-.footer-bottom a {
-    color: var(--gold);
-    font-weight: bold;
-}
-
-/* ===== МОБИЛНА АДАПТАЦИЯ ===== */
-@media (max-width: 1024px) {
-    .hero-container {
+/* Responsive */
+@media (max-width: 1200px) {
+    .main-content {
         grid-template-columns: 1fr;
-        text-align: center;
-        gap: 40px;
     }
     
-    .hero-content {
-        padding-right: 0;
+    .misy-avatar {
+        width: 150px;
+        height: 150px;
     }
-    
-    .balance-display {
+}
+
+@media (max-width: 768px) {
+    .header {
         flex-direction: column;
         gap: 20px;
     }
     
-    .misy-avatar {
-        width: 280px;
-        height: 280px;
+    .nav {
+        flex-wrap: wrap;
+        justify-content: center;
     }
     
-    .avatar-glow {
-        width: 320px;
-        height: 320px;
+    .stats-grid {
+        grid-template-columns: 1fr;
     }
     
-    h1 { font-size: 3rem; }
-    h2 { font-size: 2.2rem; }
-    h3 { font-size: 1.6rem; }
-}
-
-@media (max-width: 768px) {
-    .nav-links {
-        display: none; /* Може да смениш с hamburger menu */
-    }
-    
-    .mode-selector {
+    .input-group {
         flex-direction: column;
+    }
+    
+    .send-btn {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .quick-responses {
+        justify-content: center;
+    }
+    
+    .footer-links {
+        flex-direction: column;
+        gap: 15px;
         align-items: center;
     }
-    
-    .mode-btn {
-        width: 100%;
-        max-width: 300px;
-    }
-    
-    .input-section {
-        flex-direction: column;
-    }
-    
-    .pricing-section {
-        grid-template-columns: 1fr;
-    }
-    
-    .pricing-card.featured {
-        transform: none;
-    }
-    
-    .pricing-card.featured:hover {
-        transform: translateY(-10px);
-    }
-    
-    .fanvue-btn {
-        padding: 15px 30px;
-        font-size: 1.1rem;
-    }
-    
-    .main-btn {
-        font-size: 1.3rem;
-        padding: 18px 40px;
-    }
-    
-    .large-btn {
-        font-size: 1.5rem;
-        padding: 20px 40px;
-    }
-    
-    .benefits-grid,
-    .about-features {
-        grid-template-columns: 1fr;
-    }
 }
 
-@media (max-width: 480px) {
-    .hero-title {
-        font-size: 2.5rem;
-    }
-    
-    .hero-subtitle {
-        font-size: 1.3rem;
-    }
-    
-    .misy-avatar {
-        width: 220px;
-        height: 220px;
-    }
-    
-    .avatar-glow {
-        width: 260px;
-        height: 260px;
-    }
-    
-    .price {
-        font-size: 2.5rem;
-    }
-    
-    section {
-        padding: 60px 15px;
-    }
-    
-    .chat-container {
-        padding: 20px;
-    }
-    
-    .chat-messages {
-        height: 300px;
-    }
+/* Scrollbar стилизация */
+::-webkit-scrollbar {
+    width: 8px;
 }
 
-/* ===== АНИМАЦИИ И ЕФЕКТИ ===== */
-.fade-in {
-    animation: fadeIn 1s ease-in;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.glow-text {
-    text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
-}
-
-.highlight {
-    background: linear-gradient(120deg, rgba(212, 175, 55, 0.3) 0%, transparent 100%);
-    padding: 2px 8px;
+::-webkit-scrollbar-track {
+    background: rgba(255, 215, 0, 0.05);
     border-radius: 4px;
 }
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(45deg, var(--art-gold), var(--art-gold-dark));
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(45deg, var(--art-gold-light), var(--art-gold));
+    }
